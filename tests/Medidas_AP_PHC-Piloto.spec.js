@@ -93,7 +93,7 @@ test('Medidas Antropometricas en PHC - Mujer >= 60', async ({ page }) => {
         await medidas.inputPeso('70')
         await medidas.inputPerimetroAbdominal('55')
         await medidas.inputAlturaRodilla('48')
-        await medidas.inputTallaCalculadaPorAR(65,'M')//edad, Hombre(H) o mujer(M)
+        await medidas.inputTallaCalculadaPorAR(63,'M')//edad, Hombre(H) o mujer(M)
         await medidas.inputIMCcalculadaPorAR()
         await medidas.inputPerimetroBraquial('22')
         await medidas.inputCircunferenciaPantorilla('25')

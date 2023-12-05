@@ -71,7 +71,7 @@ test('Medidas Antropometricas en PHC - Hombre >= 60', async ({ page }) => {
 
 })
 
-test('Medidas Antropometricas en PHC - Mujer >= 60', async ({ page }) => {
+test.only('Medidas Antropometricas en PHC - Mujer >= 60', async ({ page }) => {
   
     //Objetos de paginas
     const atencion = new AtencionPHC( page )

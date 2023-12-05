@@ -56,6 +56,7 @@ export class MedidasAntropometricas {
         await this.page.locator(this.alturaRodilla).fill(valor)
         const aRodillaValue = await this.page.locator(this.alturaRodilla).inputValue()
         console.log('Altura de rodilla =', aRodillaValue)
+        console.log('');
     }
 
     async inputTallaCalculadaPorAR(edad, sexo) {
@@ -75,7 +76,7 @@ export class MedidasAntropometricas {
                 } else {
                     console.log('Error en Talla Calculada AR Formula = ', chumleaH)
                 }
-                console.log('Talla calculada por AR =', talla,)
+                console.log('Talla calculada por AR (PHC) = ',talla)
                 
             break;
             
@@ -85,19 +86,24 @@ export class MedidasAntropometricas {
                 } else {
                     console.log('Error en Talla Calculada AR Formula = ', chumleaM)
                 }
-                console.log('Talla calculada por AR =', talla,)
+                console.log('Talla calculada por AR (PHC) = ',talla)
                 
             break;
 
             default:
                 break;
         }
+        console.log('');
     }
 
     async inputIMCcalculadaPorAR() {
+        const peso = await this.page.locator(this.peso).inputValue()
+        const talla = await this.page.locator(this.tallacalculadaAR).inputValue()
+        const formula_IMCxAR = (peso/(talla/100 * talla/100)).toFixed(2)
 
         const value = await this.page.locator(this.IMCcalculadoAR).inputValue()
         const texto = await this.page.locator(this.cl_IMCporAR)
+        
         if (value < 22) {
             await expect(texto).toHaveValue('Desnutrición')
         } else if (value >= 22.1 && value <= 22.9) {
@@ -111,8 +117,13 @@ export class MedidasAntropometricas {
         } else {
             throw new Error('VALOR NO ESPERADO')
         }
-
-        console.log('IMC calculada por AR.........', value, ' Clasificación IMC por AR =', await texto.inputValue())
+        
+        (formula_IMCxAR === value)
+        ? console.log('IMC calculada por AR formula OK.........', value)
+        : console.log('Error en IMC Calculada AR Formula = ',formula_IMCxAR )
+        
+        console.log('IMC calculada por AR (PHC).........', value, ' Clasificación IMC por AR =', await texto.inputValue())
+        console.log('');
     }
 
 
